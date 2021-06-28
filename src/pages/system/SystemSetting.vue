@@ -4,7 +4,7 @@
       :columns="columns"
       :data-source="dataSource"
       :isShowAdd="isShowAdd"
-      title="学生列表"
+      title="通用设置"
       :loading="loading"
       rowKey="id"
       @search="onSearch"
@@ -109,7 +109,7 @@ export default {
       dataSource: [],
       conditions: {},
       visible: false,
-      modalTitle: "新增版本",
+      modalTitle: "修改信息",
       versionId: undefined,
       confirmLoading: false,
       statusCode: 0,

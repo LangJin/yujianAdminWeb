@@ -45,4 +45,8 @@ module.exports = {
 
   //推荐管理
   USER_BONUS_RECORDS: `${BASE_URL}/sass/userBonusRecord/listUserBonusRecord`,    //用户奖金领取记录列表
+
+  //提现记录
+  USER_WITHDRAWAL_LIST: `${BASE_URL}/sass/userWithdrawal/sassListUserWithdrawal`, //提现申请列表
+  AUDIT_WITHDRAWAL: `${BASE_URL}/sass/userWithdrawal/updateWithdrawalId`,         //审核提现申请记录
 }
