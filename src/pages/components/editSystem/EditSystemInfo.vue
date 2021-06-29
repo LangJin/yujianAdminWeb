@@ -36,7 +36,7 @@
           placeholder="请输入配置名称"
         />
       </a-form-item>
-      <a-form-item label="配置内容">
+      <a-form-item label="套餐价格">
         <a-input
           v-decorator="[
             'dicValue',
@@ -44,12 +44,12 @@
               rules: [
                 {
                   required: true,
-                  message: '请输入配置内容',
+                  message: '请输入套餐价格',
                 },
               ],
             },
           ]"
-          placeholder="请输入配置内容"
+          placeholder="请输入套餐价格"
         />
       </a-form-item>
       <a-form-item label="配置介绍">
