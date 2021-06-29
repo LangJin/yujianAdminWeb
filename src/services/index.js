@@ -5,6 +5,7 @@ import orderService from './order'
 import versionService from './version'
 import recommendService from './recommend'
 import withdrawService from './withdraw'
+import messageService from './message'
 
 export {
   userService,
@@ -13,5 +14,6 @@ export {
   orderService,
   versionService,
   recommendService,
-  withdrawService
+  withdrawService,
+  messageService
 }

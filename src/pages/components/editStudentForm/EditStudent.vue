@@ -15,13 +15,13 @@
       }
     "
   >
-    <a-form layout="vertical" :form="form">
-      <a-form-item
-        label="头像"
-        required
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 18, offset: 1 }"
-      >
+    <a-form
+      layout="vertical"
+      :form="form"
+      :labelCol="{ span: 2 }"
+      :wrapperCol="{ span: 15, offset: 1 }"
+    >
+      <a-form-item label="头像" required>
         <a-upload
           name="avatar"
           list-type="picture-card"
@@ -38,14 +38,10 @@
           </div>
         </a-upload>
       </a-form-item>
-      <a-form-item
-        label="姓名"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
+      <a-form-item label="姓名">
         <a-input
           v-decorator="[
-            'name',
+            'nickName',
             {
               rules: [
                 {
@@ -58,11 +54,24 @@
           placeholder="请输入姓名"
         />
       </a-form-item>
-      <!-- <a-form-item
-        label="年龄"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
+      <a-form-item label="手机">
+        <a-input
+          type="number"
+          v-decorator="[
+            'phone',
+            {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入手机号',
+                },
+              ],
+            },
+          ]"
+          placeholder="请输入手机号"
+        />
+      </a-form-item>
+      <a-form-item label="年龄">
         <a-input
           v-decorator="[
             'age',
@@ -75,9 +84,60 @@
               ],
             },
           ]"
+          placeholder="请输入年龄"
         />
       </a-form-item>
-      <a-form-item
+      <a-form-item label="性别">
+        <a-radio-group
+          v-decorator="[
+            'gender',
+            {
+              rules: [
+                {
+                  required: true,
+                  message: '请选择性别',
+                },
+              ],
+            },
+          ]"
+        >
+          <a-radio :value="1"> 男 </a-radio>
+          <a-radio :value="2"> 女 </a-radio>
+        </a-radio-group>
+      </a-form-item>
+      <a-form-item label="学历">
+        <a-input
+          v-decorator="[
+            'education',
+            {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入学历',
+                },
+              ],
+            },
+          ]"
+          placeholder="请输入学历"
+        />
+      </a-form-item>
+      <a-form-item label="职业">
+        <a-input
+          v-decorator="[
+            'occupation',
+            {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入职业',
+                },
+              ],
+            },
+          ]"
+          placeholder="请输入职业"
+        />
+      </a-form-item>
+      <!-- <a-form-item
         label="地区"
         :labelCol="{ span: 4 }"
         :wrapperCol="{ span: 15, offset: 1 }"
@@ -134,27 +194,6 @@
           ]"
         />
       </a-form-item> -->
-      <a-form-item
-        label="手机号"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
-        <a-input
-          type="number"
-          v-decorator="[
-            'phone',
-            {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入手机号',
-                },
-              ],
-            },
-          ]"
-          placeholder="请输入手机号"
-        />
-      </a-form-item>
       <!-- <a-form-item
         label="学校"
         :labelCol="{ span: 4 }"
@@ -194,20 +233,20 @@
           <a-radio :value="2"> 缴费用户 </a-radio>
         </a-radio-group>
       </a-form-item> -->
-      <a-form-item
+      <!-- <a-form-item
         label="是否冻结"
         :labelCol="{ span: 4 }"
         :wrapperCol="{ span: 15, offset: 1 }"
       >
         <a-switch v-decorator="['status', { valuePropName: 'checked', initialValue: false }]" @change="onChange" />
-      </a-form-item>
+      </a-form-item> -->
     </a-form>
   </a-modal>
 </template>
 
 <script>
 export default {
-  props: ["visible", "modalTitle","imageUrl", "loading", "confirmLoading"],
+  props: ["visible", "modalTitle", "imageUrl", "loading", "confirmLoading"],
   data() {
     return {
       action: "",
@@ -222,7 +261,9 @@ export default {
     },
     beforeUpload(file) {
       const isJpgOrPng =
-        file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif";
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/gif";
       if (!isJpgOrPng) {
         this.$message.error("上传的图片格式为JPG,PNG,GIF");
       }
@@ -231,12 +272,6 @@ export default {
         this.$message.error("图片不能超过2M");
       }
       return isJpgOrPng && isLt2M;
-    },
-    onChange(checked) {
-      console.log(`a-switch to ${checked}`);
-    },
-    TypeChange(e) {
-      console.log("radio checked", e.target.value);
     },
   },
 };

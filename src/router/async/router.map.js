@@ -101,6 +101,26 @@ const routerMap = {
     name: '推荐列表',
     component: () => import('@/pages/invite/inviteList')
   },
+  withdrawal: {
+    name: '提现管理',
+    icon: 'money-collect',
+    component: view.page
+  },
+  withdrawalList: {
+    path: 'withdrawalList',
+    name: '提现列表',
+    component: () => import('@/pages/withdrawal/withdrawalList')
+  },
+  message: {
+    name: '消息管理',
+    icon: 'message',
+    component: view.page
+  },
+  messageList: {
+    path: 'messageList',
+    name: '消息列表',
+    component: () => import('@/pages/message')
+  },
   exception: {
     name: "异常页",
     icon: "warning",

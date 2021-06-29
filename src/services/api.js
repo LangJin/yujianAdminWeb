@@ -34,6 +34,7 @@ module.exports = {
   USER_LIST: `${BASE_URL}/sass/user/sassListUser`, //用户列表
   USER_DETAIL: `${BASE_URL}/sass/user/getSassUser`, //用户详情
   UPDATE_USER_STATUS: `${BASE_URL}/sass/user/updateUserStatus`, //修改用户状态
+  SAVE_USER_INFO: `${BASE_URL}/sass/user/sassSaveUserDTO`,     //保存用户信息
 
   //订单管理
   ORDER_LIST: `${BASE_URL}/sass/order/sassListOrder`, //订单列表
@@ -49,4 +50,9 @@ module.exports = {
   //提现记录
   USER_WITHDRAWAL_LIST: `${BASE_URL}/sass/userWithdrawal/sassListUserWithdrawal`, //提现申请列表
   AUDIT_WITHDRAWAL: `${BASE_URL}/sass/userWithdrawal/updateWithdrawalId`,         //审核提现申请记录
+
+  //消息模板
+  MESSAGE_TEMPLATE_LIST: `${BASE_URL}/sass/messageTemplate/sassListMessageTemplate`,  //消息模板管理列表
+  SAVE_MESSAGE_TEMPLATE: `${BASE_URL}/sass/messageTemplate/saveSassMessageTemplate`,  //保存消息模板
+  UPDATE_MESSAGE_TEMPLATE_STATUS: `${BASE_URL}/sass/messageTemplate/updateMessageTemplateStatus`,   //修改模板状态
 }

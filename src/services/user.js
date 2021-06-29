@@ -1,5 +1,5 @@
 import {LOGIN, USERINFO, SYSTEM_USER_LIST,SAVE_SYSTEM_USER,UPDATE_SYSTEM_USERINFO,UPDATE_SYSTEM_USER_STATUS,
-        ALL_SYSTEM_USER_LSIT, SAVE_USER_ROLE, DELETE_USER,USER_LIST,USER_DETAIL,UPDATE_USER_STATUS} from '@/services/api'
+        ALL_SYSTEM_USER_LSIT, SAVE_USER_ROLE, DELETE_USER,USER_LIST,USER_DETAIL,UPDATE_USER_STATUS,SAVE_USER_INFO} from '@/services/api'
 import {request, METHOD, removeAuthorization} from '@/utils/request'
 
 /**
@@ -112,6 +112,15 @@ export async function updateUserStatus(userId, status){
 }
 
 /**
+ * 保存用户信息
+ * @param {*} params 用户对象
+ * @returns 
+ */
+export async function saveAndUpdateUser(params){
+  return request(SAVE_USER_INFO, METHOD.POST, params)
+}
+
+/**
  * 退出登录
  */
 export function logout() {
@@ -133,5 +142,6 @@ export default {
   deleteUserById,
   userList,
   getUserDetailById,
-  updateUserStatus
+  updateUserStatus,
+  saveAndUpdateUser
 }

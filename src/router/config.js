@@ -133,6 +133,32 @@ const options = {
           }]
         },
         {
+          path: 'withdrawal',
+          name: '提现管理',
+          meta: {
+            icon: 'money-collect'
+          },
+          component: PageView,
+          children: [{
+            path: 'withdrawalList',
+            name: '提现列表',
+            component: () => import('@/pages/withdrawal/withdrawalList')
+          }]
+        },
+        {
+          path: 'message',
+          name: '消息管理',
+          meta: {
+            icon: 'message'
+          },
+          component: PageView,
+          children: [{
+            path: 'messageList',
+            name: '消息列表',
+            component: () => import('@/pages/message')
+          }]
+        },
+        {
           path: 'exception',
           name: '异常页',
           meta: {

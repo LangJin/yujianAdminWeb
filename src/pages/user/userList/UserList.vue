@@ -4,7 +4,7 @@
       :columns="columns"
       :data-source="dataSource"
       :isShowAdd="isShowAdd"
-      title="学生列表"
+      title="用户列表"
       :loading="loading"
       rowKey="id"
       @search="onSearch"
@@ -47,13 +47,13 @@
         >
           <a-icon type="file-text" />详情
         </a>
-        <!-- <a
+        <a
           style="margin-right: 8px"
           @click="editStudent(record.id)"
           v-auth="`edit`"
         >
           <a-icon type="form" />编辑
-        </a> -->
+        </a>
         <a
           style="margin-right: 8px"
           @click="editStatus(record.id, record.status)"
@@ -164,14 +164,14 @@ export default {
           scopedSlots: { customRender: "status" },
           width: "8%",
           searchAble: true,
-          dataType: 'select',
+          dataType: "select",
           search: {
             selectOptions: [
-              { title: '禁用', value: 0 },
-              { title: '正常', value: 1 },
-              { title: '注销', value: 9 }
-            ]
-          }
+              { title: "禁用", value: 0 },
+              { title: "正常", value: 1 },
+              { title: "注销", value: 9 },
+            ],
+          },
         },
         {
           title: "操作",
@@ -190,7 +190,7 @@ export default {
       statusVisible: false,
       confirmLoading: false,
       statusCode: 0,
-      isShowAdd: false,
+      isShowAdd: true,
     };
   },
   created() {
@@ -203,9 +203,9 @@ export default {
       us.userList(pageSize, pageNum, { ...conditions }).then((result) => {
         const list = result.data.data;
         const { curPage, pageSize, total } = result.data.pagination;
-        this.dataSource = list.map(function(value){
-           delete value.children;
-           return value;
+        this.dataSource = list.map(function (value) {
+          delete value.children;
+          return value;
         });
         this.pageNum = curPage;
         this.total = total;
@@ -257,16 +257,19 @@ export default {
       this.modalTitle = "修改用户信息";
       this.visible = true;
       const form = this.$refs.collectionForm.form;
-      us.studentInfoById(id).then((res) => {
+      us.getUserDetailById(id).then((res) => {
         if (res.data.code === 1) {
           let info = res.data.data[0];
           form.resetFields();
-          this.imageUrl = info.headUrl;
+          this.imageUrl = info.avatarUrl;
           this.$nextTick(() => {
             form.setFieldsValue({
-              name: info.name,
+              nickName: info.nickName,
               phone: info.phone,
-              status: info.status == 0 ? true : false,
+              age: info.age,
+              gender: info.gender,
+              education: info.education,
+              occupation: info.occupation,
             });
           });
         }
@@ -319,11 +322,10 @@ export default {
           addVlue.id = this.studentId;
         }
         if (this.fileName == undefined) {
-          addVlue.headUrl = this.imageUrl;
+          addVlue.avatarUrl = this.imageUrl;
         } else {
-          addVlue.headUrl = this.fileName;
+          addVlue.avatarUrl = this.fileName;
         }
-        values.status = values.status == true ? 0 : 1;
         let params = { ...values, ...addVlue };
         this.saveAndUpdateStudent(params, form);
       });
@@ -331,7 +333,7 @@ export default {
     //保存、修改学生信息
     saveAndUpdateStudent(params, form) {
       this.confirmLoading = true;
-      us.saveStudentInfo(params).then((res) => {
+      us.saveAndUpdateUser(params).then((res) => {
         if (res.data.code === 1) {
           this.$message.success(res.data.msg);
           form.resetFields();
