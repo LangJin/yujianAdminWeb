@@ -35,6 +35,8 @@ module.exports = {
   USER_DETAIL: `${BASE_URL}/sass/user/getSassUser`, //用户详情
   UPDATE_USER_STATUS: `${BASE_URL}/sass/user/updateUserStatus`, //修改用户状态
   SAVE_USER_INFO: `${BASE_URL}/sass/user/sassSaveUserDTO`,     //保存用户信息
+  SAVE_USER_PHOTOS: `${BASE_URL}/sass/user/sassSaveUserPhoneDTO`, //保存用户图片信息
+  SAVE_USER_INTEREST: `${BASE_URL}/sass/user/sassSaveUserInterestDTO`,  //保存用户兴趣信息
 
   //订单管理
   ORDER_LIST: `${BASE_URL}/sass/order/sassListOrder`, //订单列表

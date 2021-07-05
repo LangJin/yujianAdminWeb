@@ -1,5 +1,6 @@
 import {LOGIN, USERINFO, SYSTEM_USER_LIST,SAVE_SYSTEM_USER,UPDATE_SYSTEM_USERINFO,UPDATE_SYSTEM_USER_STATUS,
-        ALL_SYSTEM_USER_LSIT, SAVE_USER_ROLE, DELETE_USER,USER_LIST,USER_DETAIL,UPDATE_USER_STATUS,SAVE_USER_INFO} from '@/services/api'
+        ALL_SYSTEM_USER_LSIT, SAVE_USER_ROLE, DELETE_USER,USER_LIST,USER_DETAIL,UPDATE_USER_STATUS,SAVE_USER_INFO,
+        SAVE_USER_PHOTOS, SAVE_USER_INTEREST} from '@/services/api'
 import {request, METHOD, removeAuthorization} from '@/utils/request'
 
 /**
@@ -121,6 +122,24 @@ export async function saveAndUpdateUser(params){
 }
 
 /**
+ * 保存用户图片信息
+ * @param {*} params 图片数组
+ * @returns 
+ */
+export async function saveAndUpdateUserPhotos(params){
+  return request(SAVE_USER_PHOTOS, METHOD.POST, params);
+}
+
+/**
+ * 保存用户兴趣爱好
+ * @param {*} params 兴趣爱好数组
+ * @returns 
+ */
+ export async function saveAndUpdateUserInterest(params){
+  return request(SAVE_USER_INTEREST, METHOD.POST, params);
+}
+
+/**
  * 退出登录
  */
 export function logout() {
@@ -143,5 +162,7 @@ export default {
   userList,
   getUserDetailById,
   updateUserStatus,
-  saveAndUpdateUser
+  saveAndUpdateUser,
+  saveAndUpdateUserPhotos,
+  saveAndUpdateUserInterest
 }

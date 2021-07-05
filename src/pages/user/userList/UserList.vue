@@ -56,6 +56,20 @@
         </a>
         <a
           style="margin-right: 8px"
+          @click="addPhotots(record.id)"
+          v-auth="`edit`"
+        >
+          <a-icon type="picture" /> 图片
+        </a>
+        <a
+          style="margin-right: 8px"
+          @click="addInterest(record.id)"
+          v-auth="`edit`"
+        >
+          <a-icon type="heart" />兴趣
+        </a>
+        <a
+          style="margin-right: 8px"
           @click="editStatus(record.id, record.status)"
           v-auth="`status`"
         >
@@ -77,6 +91,18 @@
       @create="handleCreate"
       @handleChange="uploadImg"
     ></edit-student>
+    <edit-picture
+      ref="pictureForm"
+      :visible="pictureVisible"
+      @pictureCancel="pictureCancel"
+      @pictureCreate="pictureCreate"
+    ></edit-picture>
+    <edit-interest
+      ref="interestForm"
+      :visible="interestVisible"
+      @interestCancel="interestCancel"
+      @interestCreate="interestCreate"
+    ></edit-interest>
     <a-modal
       :title="statusTitle"
       :visible="statusVisible"
@@ -106,12 +132,19 @@
 <script>
 import CustomTable from "@/pages/components/table/CustomTable";
 import EditStudent from "@/pages/components/editStudentForm/EditStudent";
+import EditPicture from "@/pages/components/editStudentForm/EditPicture.vue";
+import EditInterest from "@/pages/components/editStudentForm/EditInterest.vue";
 import { putObject, renameFile } from "../../../utils/upload";
 import { userService as us } from "@/services";
 
 export default {
   name: "UserList",
-  components: { CustomTable, EditStudent },
+  components: {
+    CustomTable,
+    EditStudent,
+    EditPicture,
+    EditInterest,
+  },
   data() {
     return {
       loading: false,
@@ -191,6 +224,8 @@ export default {
       confirmLoading: false,
       statusCode: 0,
       isShowAdd: true,
+      pictureVisible: false,
+      interestVisible: false,
     };
   },
   created() {
@@ -281,7 +316,7 @@ export default {
       this.statusCode = status;
       this.statusVisible = true;
     },
-    //上传图片
+    //上传图片（头像）
     uploadImg(info) {
       this.imageLoading = true;
       const file = info.file;
@@ -363,6 +398,83 @@ export default {
     //状态下拉框
     handleSelectChange(value) {
       this.statusCode = value;
+    },
+    //添加修改图片
+    addPhotots(id) {
+      this.studentId = id;
+      us.getUserDetailById(id).then((res) => {
+        if (res.data.code === 1) {
+          let info = res.data.data[0];
+          this.$refs.pictureForm.fileList = info.photos.map(function (
+            value,
+            index
+          ) {
+            let photo = {
+              uid: index + 1,
+              name: value,
+              status: "done",
+              url: value,
+              thumbUrl: value,
+            };
+            return photo;
+          });
+        }
+      });
+      this.pictureVisible = true;
+    },
+    //图片弹窗取消事件
+    pictureCancel() {
+      this.pictureVisible = false;
+    },
+    // //图片弹窗确定事件
+    pictureCreate(fileList) {
+      let photos = fileList.map(function (value) {
+        return value.url;
+      });
+      let data = {
+        userId: this.studentId,
+        userPhone: photos,
+      };
+      us.saveAndUpdateUserPhotos(data).then((res) => {
+        if (res.data.code == 1) {
+          this.$message.success(res.data.msg);
+          this.pictureVisible = false;
+          this.$refs.pictureForm.fileList = [];
+          this.getUserList();
+        }
+      });
+    },
+    //兴趣按钮
+    addInterest(id) {
+      this.studentId = id;
+      us.getUserDetailById(id).then((res) => {
+        if (res.data.code === 1) {
+          let info = res.data.data[0];
+          this.$refs.interestForm.value = info.interests;
+          this.$refs.interestForm.userInterest = info.interests;
+        }
+      });
+      this.interestVisible = true;
+    },
+    //兴趣弹窗取消事件
+    interestCancel() {
+      this.interestVisible = false;
+      this.$refs.interestForm.form.resetFields();
+    },
+    //兴趣弹窗确定事件
+    interestCreate(userInterest) {
+      let data = {
+        userId: this.studentId,
+        userInterest: userInterest,
+      };
+      us.saveAndUpdateUserInterest(data).then((res) => {
+        if (res.data.code == 1) {
+          this.$message.success(res.data.msg);
+          this.$refs.interestForm.form.resetFields();
+          this.interestVisible = false;
+          this.getUserList();
+        }
+      });
     },
   },
 };

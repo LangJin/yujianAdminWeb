@@ -27,7 +27,6 @@
           list-type="picture-card"
           class="avatar-uploader"
           :show-upload-list="false"
-          :action="action"
           :before-upload="beforeUpload"
           :customRequest="handleChange"
         >
@@ -137,125 +136,28 @@
           placeholder="请输入职业"
         />
       </a-form-item>
-      <!-- <a-form-item
-        label="地区"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
-        <a-input
-          v-decorator="[
-            'area',
-            {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入地区',
-                },
-              ],
-            },
-          ]"
-        />
-      </a-form-item>
-      <a-form-item
-        label="学历"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
-        <a-input
-          v-decorator="[
-            'education',
-            {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入学历',
-                },
-              ],
-            },
-          ]"
-        />
-      </a-form-item>
-      <a-form-item
-        label="缴费金额"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
-        <a-input
-          v-decorator="[
-            'payMoney',
-            {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入缴费金额',
-                },
-              ],
-            },
-          ]"
-        />
-      </a-form-item> -->
-      <!-- <a-form-item
-        label="学校"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
-        <a-input
-          v-decorator="[
-            'school',
-            {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入学校名称',
-                },
-              ],
-            },
-          ]"
-        />
-      </a-form-item>
-      <a-form-item
-        label="用户类型"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
-        <a-radio-group v-decorator="[
-            'type',
-            {
-              rules: [
-                {
-                  required: true,
-                  message: '请选择用户类型',
-                },
-              ],
-            },
-          ]"  @change="TypeChange">
-          <a-radio :value="1"> 普通用户 </a-radio>
-          <a-radio :value="2"> 缴费用户 </a-radio>
-        </a-radio-group>
-      </a-form-item> -->
-      <!-- <a-form-item
-        label="是否冻结"
-        :labelCol="{ span: 4 }"
-        :wrapperCol="{ span: 15, offset: 1 }"
-      >
-        <a-switch v-decorator="['status', { valuePropName: 'checked', initialValue: false }]" @change="onChange" />
-      </a-form-item> -->
     </a-form>
   </a-modal>
 </template>
 
 <script>
 export default {
-  props: ["visible", "modalTitle", "imageUrl", "loading", "confirmLoading"],
+  props: [
+    "visible",
+    "modalTitle",
+    "imageUrl",
+    "loading",
+    "confirmLoading",
+    "fileList",
+  ],
   data() {
-    return {
-      action: "",
-    };
+    return {};
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: "form_in_modal" });
   },
   methods: {
+    //头像上传
     handleChange(info) {
       this.$emit("handleChange", info);
     },
