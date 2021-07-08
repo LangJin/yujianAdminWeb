@@ -91,7 +91,7 @@ export function renameFile(file) {
     let extension = file.name.substring(file.name.lastIndexOf('.'));
     let newName = '';
     let date = new Date();
-    let d = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDay() + "/";
+    let d = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "/";
     newName = d.concat(uuidv4().trim()).concat(extension);
     var newFile = new File([file], newName);
     return newFile;

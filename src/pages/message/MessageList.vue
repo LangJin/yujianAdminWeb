@@ -4,7 +4,7 @@
       :columns="columns"
       :data-source="dataSource"
       :isShowAdd="isShowAdd"
-      title="提现列表"
+      title="消息列表"
       :loading="loading"
       rowKey="id"
       @search="onSearch"

@@ -31,6 +31,9 @@
       <template slot="status" slot-scope="{ text }">
         {{ text === 0 ? "冻结" : "正常" }}
       </template>
+      <template slot="gender" slot-scope="{ text }">
+        {{ text === 1 ? "男" : "女" }}
+      </template>
       <div slot="action" slot-scope="{ text, record }">
         <a
           style="margin-right: 8px"
@@ -74,7 +77,7 @@ export default {
         },
         {
           title: "名称",
-          dataIndex: "dicName"
+          dataIndex: "dicName",
         },
         {
           title: "价格",
@@ -83,12 +86,21 @@ export default {
         {
           title: "编码",
           dataIndex: "typeCode",
-          searchAble: true
+          searchAble: true,
         },
         {
-          title: "介绍",
+          title: "天数",
           dataIndex: "typeDescription",
           searchAble: true,
+        },
+        {
+          title: "返利金额",
+          dataIndex: "rebate",
+        },
+        {
+          title: "性别",
+          dataIndex: "gender",
+          scopedSlots: { customRender: "gender" },
         },
         {
           title: "状态",
@@ -178,6 +190,8 @@ export default {
         form.setFieldsValue({
           dicName: target.dicName,
           dicValue: target.dicValue,
+          gender: target.gender,
+          rebate: target.rebate,
           typeDescription: target.typeDescription,
         });
       });
