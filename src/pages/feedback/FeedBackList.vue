@@ -71,7 +71,6 @@ export default {
           title: "图片",
           dataIndex: "urls",
           scopedSlots: { customRender: "urls" },
-          width: "35%",
         },
         {
           title: "创建时间",
@@ -137,12 +136,16 @@ export default {
 .classPh {
   width: 40px;
   height: 40px;
-  display: flex;
+  // display: flex;
+  position: relative;
   img {
     flex-shrink: 0;
     width: 100%;
     height: 100%;
-    margin-right: 10px;
+    // margin-right: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 </style>
