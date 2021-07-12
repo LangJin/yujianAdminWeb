@@ -34,8 +34,8 @@
           ]"
           placeholder="请选择审核状态"
         >
-          <a-select-option :value="1">通过</a-select-option>
-          <a-select-option :value="2">失败</a-select-option>
+          <a-select-option :value="2">通过</a-select-option>
+          <a-select-option :value="3">失败</a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item label="备注">

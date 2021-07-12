@@ -24,14 +24,14 @@
       }"
     >
       <template slot="status" slot-scope="{ text }">
-        {{ text === 0 ? "无效" : "有效" }}
+        {{ text === 1 ? "申请中" : text === 2 ? "申请通过" : "申请失败" }}
       </template>
       <div slot="action" slot-scope="{ text, record }">
         <a
           style="margin-right: 8px"
           @click="auditRecord(record.id)"
           v-auth="`audit`"
-          :disabled="record.status === 1 ? true : false"
+          :disabled="record.status === 1 ? false : true"
         >
           <a-icon type="audit" />审核
         </a>
