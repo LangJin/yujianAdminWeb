@@ -121,6 +121,16 @@ const routerMap = {
     name: '消息列表',
     component: () => import('@/pages/message')
   },
+  feedback: {
+    name: '问题管理',
+    icon: 'question-circle',
+    component: view.page
+  },
+  feedBackList: {
+    path: 'feedBackList',
+    name: '问题列表',
+    component: () => import('@/pages/feedback')
+  },
   exception: {
     name: "异常页",
     icon: "warning",

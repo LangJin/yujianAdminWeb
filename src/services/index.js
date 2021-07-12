@@ -6,6 +6,7 @@ import versionService from './version'
 import recommendService from './recommend'
 import withdrawService from './withdraw'
 import messageService from './message'
+import feedbackService from './feedback'
 
 export {
   userService,
@@ -15,5 +16,6 @@ export {
   versionService,
   recommendService,
   withdrawService,
-  messageService
+  messageService,
+  feedbackService
 }

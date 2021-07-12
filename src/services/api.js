@@ -57,4 +57,7 @@ module.exports = {
   MESSAGE_TEMPLATE_LIST: `${BASE_URL}/sass/messageTemplate/sassListMessageTemplate`,  //消息模板管理列表
   SAVE_MESSAGE_TEMPLATE: `${BASE_URL}/sass/messageTemplate/saveSassMessageTemplate`,  //保存消息模板
   UPDATE_MESSAGE_TEMPLATE_STATUS: `${BASE_URL}/sass/messageTemplate/updateMessageTemplateStatus`,   //修改模板状态
+
+  //问题反馈
+  FEED_BACK_LIST: `${BASE_URL}/sass/feedback/listFeedback`,       //问题反馈列表
 }

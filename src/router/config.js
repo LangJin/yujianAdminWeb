@@ -159,6 +159,19 @@ const options = {
           }]
         },
         {
+          path: 'feedback',
+          name: '问题反馈',
+          meta: {
+            icon: 'question-circle'
+          },
+          component: PageView,
+          children: [{
+            path: 'feedBackList',
+            name: '问题列表',
+            component: () => import('@/pages/feedback')
+          }]
+        },
+        {
           path: 'exception',
           name: '异常页',
           meta: {
