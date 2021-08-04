@@ -53,10 +53,15 @@ module.exports = {
   USER_WITHDRAWAL_LIST: `${BASE_URL}/sass/userWithdrawal/sassListUserWithdrawal`, //提现申请列表
   AUDIT_WITHDRAWAL: `${BASE_URL}/sass/userWithdrawal/updateWithdrawalId`,         //审核提现申请记录
 
-  //消息模板
+  //消息模板模板
   MESSAGE_TEMPLATE_LIST: `${BASE_URL}/sass/messageTemplate/sassListMessageTemplate`,  //消息模板管理列表
   SAVE_MESSAGE_TEMPLATE: `${BASE_URL}/sass/messageTemplate/saveSassMessageTemplate`,  //保存消息模板
   UPDATE_MESSAGE_TEMPLATE_STATUS: `${BASE_URL}/sass/messageTemplate/updateMessageTemplateStatus`,   //修改模板状态
+
+  //消息列表
+  MESSAGE_LIST: `${BASE_URL}/sass/message/sassListMessage`,   //消息列表
+  SAVE_MESSAGE: `${BASE_URL}/sass/message/saveUserMessage`,   //发送消息
+  GET_USER_MESSAGES: `${BASE_URL}/sass/message/getMessage`,        //获取聊天框信息
 
   //问题反馈
   FEED_BACK_LIST: `${BASE_URL}/sass/feedback/listFeedback`,       //问题反馈列表

@@ -116,6 +116,11 @@ const routerMap = {
     icon: 'message',
     component: view.page
   },
+  messageTemplateList: {
+    path: 'messageTemplateList',
+    name: '消息模板',
+    component: () => import('@/pages/messageTemplate')
+  },
   messageList: {
     path: 'messageList',
     name: '消息列表',

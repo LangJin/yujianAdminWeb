@@ -153,6 +153,10 @@ const options = {
           },
           component: PageView,
           children: [{
+            path: 'messageTemplateList',
+            name: '消息模板',
+            component: () => import('@/pages/messageTemplate')
+          }, {
             path: 'messageList',
             name: '消息列表',
             component: () => import('@/pages/message')
