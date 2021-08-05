@@ -45,12 +45,12 @@
       @close="onClose"
     >
       <a-spin :spinning="spinning">
-        <div class="item_box">
+        <div class="item_box" id="chatRecord">
           <div v-for="(item, index) in messageList" :key="index">
             <div class="date">
-              {{ item.createTime }}
+              {{ item.createTime | formatDate }}
             </div>
-            <div class="mar_bott d_flex" v-if="item.userId !== userId">
+            <div class="mar_bott d_flex" v-if="item.userId == userId">
               <div class="avater">
                 <img
                   v-if="info.toUserVO.avatarUrl"
@@ -167,6 +167,13 @@ export default {
   created() {
     this.getMessageList();
   },
+
+  updated() {
+    // 聊天定位到底部
+    let ele = document.getElementById("chatRecord");
+    ele.scrollTop = ele.scrollHeight;
+  },
+
   methods: {
     //获取消息列表
     getMessageList() {
@@ -242,14 +249,15 @@ export default {
       }
       let params = {
         content: this.value,
-        toUserId: this.toUserId,
+        toUserId: this.userId,
       };
       this.saveMessage(params);
     },
     //发送消息
     saveMessage(params) {
       this.confirmLoading = true;
-      ms.saveMessage(this.userId, params).then((res) => {
+      let userId = this.toUserId;
+      ms.saveMessage(userId, params).then((res) => {
         if (res.data.code === 1) {
           this.$message.success(res.data.msg);
           this.value = "";
@@ -258,6 +266,7 @@ export default {
         this.confirmLoading = false;
       });
     },
+    //文本框改变事件
     handleChange(e) {
       this.value = e.target.value;
     },
@@ -313,7 +322,7 @@ export default {
     width: 40px;
     height: 40px;
     margin-left: 10px;
-
+    margin-right: 10px;
     img {
       width: 100%;
       height: 100%;
