@@ -50,7 +50,7 @@
             <div class="date">
               {{ item.createTime | formatDate }}
             </div>
-            <div class="mar_bott d_flex" v-if="item.userId == userId">
+            <div class="mar_bott self" v-if="item.userId !== userId">
               <div class="avater">
                 <img
                   v-if="info.toUserVO.avatarUrl"
@@ -65,7 +65,7 @@
                 </div>
               </div>
             </div>
-            <div class="mar_bott self" v-else>
+            <div class="mar_bott d_flex" v-else>
               <div class="avater">
                 <img
                   v-if="info.userVO.avatarUrl"
@@ -123,17 +123,17 @@ export default {
           width: "7%",
         },
         {
-          title: "发送人姓名",
+          title: "用户名称",
           dataIndex: "userName",
+          searchAble: true,
         },
         {
-          title: "接收人姓名",
+          title: "机器人名称",
           dataIndex: "toUserName",
         },
         {
           title: "消息内容",
           dataIndex: "content",
-          searchAble: true,
           width: "30%",
         },
         {
@@ -167,13 +167,13 @@ export default {
   created() {
     this.getMessageList();
   },
-
   updated() {
-    // 聊天定位到底部
-    let ele = document.getElementById("chatRecord");
-    ele.scrollTop = ele.scrollHeight;
+    if (this.visible) {
+      // 聊天定位到底部
+      let ele = document.getElementById("chatRecord");
+      ele.scrollTop = ele.scrollHeight;
+    }
   },
-
   methods: {
     //获取消息列表
     getMessageList() {
@@ -291,7 +291,7 @@ export default {
 .self_box {
   max-width: 255px;
   padding: 10px;
-  background: #f8f8f8;
+  background-color: #f1caab;
   border-radius: 4px;
   font-size: 14px;
   color: #333333;
@@ -342,6 +342,6 @@ export default {
 }
 
 .self_box {
-  background-color: #f1caab;
+  background: #f8f8f8;
 }
 </style>
