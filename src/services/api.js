@@ -52,6 +52,7 @@ module.exports = {
   //提现记录
   USER_WITHDRAWAL_LIST: `${BASE_URL}/sass/userWithdrawal/sassListUserWithdrawal`, //提现申请列表
   AUDIT_WITHDRAWAL: `${BASE_URL}/sass/userWithdrawal/updateWithdrawalId`,         //审核提现申请记录
+  GET_UNTREATED_WITHDRAW_NUM: `${BASE_URL}/sass/userWithdrawal/getNotWithdrawalNum`,  //获取未处理提现条数
 
   //消息模板模板
   MESSAGE_TEMPLATE_LIST: `${BASE_URL}/sass/messageTemplate/sassListMessageTemplate`,  //消息模板管理列表

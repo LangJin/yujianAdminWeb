@@ -24,6 +24,11 @@
         onShowSizeChange: onSizeChange,
       }"
     >
+      <template slot="status" slot-scope="{ text }">
+        <div :class="[text === 0 ? 'text_color' : '']">
+          {{ text === 1 ? "已回复" : "待回复" }}
+        </div>
+      </template>
       <div slot="action" slot-scope="{ text, record }">
         <a
           style="margin-right: 8px"
@@ -95,7 +100,7 @@
             type="primary"
             @click="handleSubmit"
           >
-            提 交
+            发 送
           </a-button>
         </div>
       </a-spin>
@@ -134,7 +139,20 @@ export default {
         {
           title: "消息内容",
           dataIndex: "content",
-          width: "30%",
+          width: "25%",
+        },
+        {
+          title: "状态",
+          dataIndex: "isNew",
+          scopedSlots: { customRender: "status" },
+          // searchAble: true,
+          // dataType: "select",
+          // search: {
+          //   selectOptions: [
+          //     { title: "待回复", value: 0 },
+          //     { title: "已回复", value: 1 },
+          //   ]
+          // }
         },
         {
           title: "创建时间",
@@ -262,6 +280,7 @@ export default {
           this.$message.success(res.data.msg);
           this.value = "";
           this.getUserMessage();
+          this.getMessageList();
         }
         this.confirmLoading = false;
       });
@@ -343,5 +362,8 @@ export default {
 
 .self_box {
   background: #f8f8f8;
+}
+.text_color {
+  color: red;
 }
 </style>

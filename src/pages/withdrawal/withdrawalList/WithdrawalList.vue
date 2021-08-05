@@ -52,6 +52,7 @@
 import CustomTable from "@/pages/components/table/CustomTable";
 import { withdrawService as ws } from "@/services";
 import AuditWithdrawal from "../../components/auditWithdrawal/AuditWithdrawal.vue";
+import { mapMutations } from "vuex";
 
 export default {
   name: "WithdrawalList",
@@ -127,6 +128,7 @@ export default {
     this.getWithdrawalList();
   },
   methods: {
+    ...mapMutations("account", ["setWithdrawCount"]),
     getWithdrawalList() {
       this.loading = true;
       const { pageNum, pageSize, conditions } = this;
@@ -196,9 +198,20 @@ export default {
           this.$message.success(res.data.msg);
           form.resetFields();
           this.visible = false;
+          this.getUntreatedWithdrawNum();
           this.getWithdrawalList();
         }
         this.confirmLoading = false;
+      });
+    },
+    //获取未处理提现条数
+    getUntreatedWithdrawNum() {
+      ws.getUntreatedWithdrawNum().then((res) => {
+        if (res.data.code == 1) {
+          let count = res.data.data[0];
+          const withdrawCount = { count: count };
+          this.setWithdrawCount(withdrawCount);
+        }
       });
     },
   },

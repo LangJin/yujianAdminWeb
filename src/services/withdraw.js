@@ -1,4 +1,4 @@
-import { USER_WITHDRAWAL_LIST, AUDIT_WITHDRAWAL} from './api'
+import { USER_WITHDRAWAL_LIST, AUDIT_WITHDRAWAL, GET_UNTREATED_WITHDRAW_NUM} from './api'
 import { request, METHOD } from '@/utils/request'
 
 /**
@@ -21,6 +21,14 @@ export async function auditWithdrawal(params){
     return request(AUDIT_WITHDRAWAL, METHOD.POST, params)
 }
 
+/**
+ * 获取未处理提现条数
+ * @returns 
+ */
+export async function getUntreatedWithdrawNum(){
+    return request(GET_UNTREATED_WITHDRAW_NUM, METHOD.POST);
+}
+
 export default{
-    withdrawalList, auditWithdrawal
+    withdrawalList, auditWithdrawal,getUntreatedWithdrawNum
 }

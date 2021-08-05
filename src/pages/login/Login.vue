@@ -95,6 +95,7 @@ import { login, getUserInfo } from "@/services/user";
 import { setAuthorization } from "@/utils/request";
 import { loadRoutes } from "@/utils/routerUtil";
 import { mapMutations } from "vuex";
+import { withdrawService as ws } from "@/services";
 export default {
   name: "Login",
   components: { CommonLayout },
@@ -111,7 +112,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("account", ["setUser", "setPermissions", "setRoles"]),
+    ...mapMutations("account", [
+      "setUser",
+      "setPermissions",
+      "setRoles",
+      "setWithdrawCount",
+    ]),
     onSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err) => {
@@ -128,10 +134,11 @@ export default {
       const loginRes = res.data;
       if (loginRes.code == 1) {
         this.getUserInfo();
+        this.getUntreatedWithdrawNum();
         //设置token
         setAuthorization({
           token: loginRes.data[0].token,
-          expireAt: new Date(loginRes.data.expireAt)
+          expireAt: new Date(loginRes.data.expireAt),
         });
         const { roles, permission } = loginRes.data[0];
         //保存权限
@@ -161,6 +168,16 @@ export default {
           user.avatar = userInfo.headUrl;
         }
         this.setUser(user); //保存用户信息 store
+      });
+    },
+    //获取未处理提现条数
+    getUntreatedWithdrawNum() {
+      ws.getUntreatedWithdrawNum().then((res) => {
+        if (res.data.code == 1) {
+          let count = res.data.data[0];
+          const withdrawCount = { count: count };
+          this.setWithdrawCount(withdrawCount);
+        }
       });
     },
   },

@@ -4,7 +4,8 @@ export default {
     user: undefined,
     permissions: null,
     roles: null,
-    routesConfig: null
+    routesConfig: null,
+    withdrawCount: undefined
   },
   getters: {
     user: state => {
@@ -53,10 +54,21 @@ export default {
         }
       }
       return state.routesConfig
+    },
+    withdrawCount: state => {
+      if (!state.withdrawCount) {
+        try {
+          const withdrawCount = localStorage.getItem(process.env.VUE_APP_COUNT_KEY)
+          state.withdrawCount = JSON.parse(withdrawCount)
+        } catch (e) {
+          console.error(e)
+        }
+      }
+      return state.withdrawCount
     }
   },
   mutations: {
-    setUser (state, user) {
+    setUser(state, user) {
       state.user = user
       localStorage.setItem(process.env.VUE_APP_USER_KEY, JSON.stringify(user))
     },
@@ -71,6 +83,10 @@ export default {
     setRoutesConfig(state, routesConfig) {
       state.routesConfig = routesConfig
       localStorage.setItem(process.env.VUE_APP_ROUTES_KEY, JSON.stringify(routesConfig))
-    }
+    },
+    setWithdrawCount(state, withdrawCount) {
+      state.withdrawCount = withdrawCount
+      localStorage.setItem(process.env.VUE_APP_COUNT_KEY, JSON.stringify(withdrawCount))
+    },
   }
 }
