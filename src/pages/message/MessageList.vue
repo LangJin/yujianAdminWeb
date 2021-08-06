@@ -24,6 +24,12 @@
         onShowSizeChange: onSizeChange,
       }"
     >
+      <template slot="gender" slot-scope="{ text }">
+          {{ text === 1 ? "男" : "女" }}
+      </template>
+      <template slot="isVip" slot-scope="{ text }">
+          {{ text === 1 ? "VIP" : "非VIP" }}
+      </template>
       <template slot="status" slot-scope="{ text }">
         <div :class="[text === 0 ? 'text_color' : '']">
           {{ text === 1 ? "已回复" : "待回复" }}
@@ -35,7 +41,7 @@
           @click="messageDetail(record)"
           v-auth="`detail`"
         >
-          <a-icon type="file-text" /> 详情
+          <a-icon type="file-text" /> 聊天
         </a>
       </div>
     </custom-table>
@@ -50,6 +56,25 @@
       @close="onClose"
     >
       <a-spin :spinning="spinning">
+        <div>
+          <h2>用户资料</h2>
+          <a-row>
+            <a-col :span="12">
+              <p>电话：{{info.userVO.phone}}</p>
+            </a-col>
+            <a-col :span="12">
+              <p>年龄：{{info.userVO.age}}</p>
+            </a-col>
+          </a-row>
+          <a-row>
+            <a-col :span="12">
+              <p>性别：{{info.userVO.gender  === 1 ? "男" : "女" }}</p>
+            </a-col>
+            <a-col :span="12">
+              <p>会员：{{info.userVO.isVip  === 1 ? "VIP" : "非VIP"  }}</p>
+            </a-col>
+          </a-row>
+        </div>
         <div class="item_box" id="chatRecord">
           <div v-for="(item, index) in messageList" :key="index">
             <div class="date">
@@ -91,11 +116,12 @@
               :rows="4"
               :value="value"
               @change="handleChange"
-              placeholder="请输入备注..."
+              placeholder="请输入消息..."
             />
           </a-form-item>
           <a-button
             html-type="submit"
+            style="float: right;"
             :loading="confirmLoading"
             type="primary"
             @click="handleSubmit"
@@ -131,6 +157,32 @@ export default {
           title: "用户名称",
           dataIndex: "userName",
           searchAble: true,
+        },
+        {
+          title: "用户性别",
+          dataIndex: "gender",
+          scopedSlots: { customRender: "gender" },
+          searchAble: true,
+          dataType: "select",
+          search: {
+            selectOptions: [
+              { title: "男性", value: 1 },
+              { title: "女性", value: 2 },
+            ]
+          }
+        },
+        {
+          title: "是否VIP",
+          dataIndex: "isVip",
+          scopedSlots: { customRender: "isVip" },
+          searchAble: true,
+          dataType: "select",
+          search: {
+            selectOptions: [
+              { title: "VIP", value: 1 },
+              { title: "非VIP", value: 2 },
+            ]
+          }
         },
         {
           title: "机器人名称",
@@ -301,7 +353,7 @@ export default {
 .item_box {
   border: 1px solid #e3e3e3;
   border-radius: 4px;
-  height: 320px;
+  height: 480px;
   margin-bottom: 10px;
   overflow-y: scroll;
 }
